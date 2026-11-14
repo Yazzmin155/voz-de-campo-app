@@ -462,6 +462,26 @@ export const SettingsPage: React.FC = () => {
         </p>
       </section>
 
+      {/* Instalar en Android */}
+      <section className="card-duo p-4 flex items-center gap-3">
+        <div className="w-10 h-10 rounded-xl bg-app-tint text-[var(--brand)] flex items-center justify-center shrink-0">
+          <Download className="w-5 h-5" />
+        </div>
+        <div className="flex-1 min-w-0">
+          <div className="text-sm font-extrabold text-app-ink">Instalar en Android</div>
+          <div className="text-[11px] text-app-muted leading-snug">
+            Descarga el APK de la demo y ábrelo en el teléfono para instalarlo.
+          </div>
+        </div>
+        <a
+          href="/descargas/voz-de-campo-demo.apk"
+          download="voz-de-campo-demo.apk"
+          className="btn-duo-primary px-3 py-2 text-xs shrink-0"
+        >
+          Descargar
+        </a>
+      </section>
+
       {/* Conexión y datos demo */}
       <section className="card-duo p-4 space-y-3">
         <div className="flex items-center justify-between gap-3">

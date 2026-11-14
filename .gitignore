@@ -24,5 +24,6 @@ android/app/build
 android/local.properties
 android/.idea
 
-# APK de entrega (binario, se comparte aparte)
+# APK de entrega: binario, se sirve desde el sitio
 *.apk
+!public/descargas/*.apk
