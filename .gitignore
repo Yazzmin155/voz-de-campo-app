@@ -1,33 +1,28 @@
-# Gradle files
-.gradle/
-build/
-
-# Local configuration file (sdk path, etc)
-local.properties
-
-# Log/OS Files
+node_modules
+dist
+dist-ssr
+.vercel
+*.local
+.env
+.env.*
+!.env.example
+coverage
+.DS_Store
+Thumbs.db
 *.log
+tsconfig.tsbuildinfo
 
-# Android Studio generated files and folders
-captures/
-.externalNativeBuild/
-.cxx/
+# Artefactos de QA y pruebas (se regeneran)
+qa-shots
+test-results
+playwright-report
+
+# Android: solo se versiona el proyecto, no lo que genera Gradle
+android/.gradle
+android/build
+android/app/build
+android/local.properties
+android/.idea
+
+# APK de entrega (binario, se comparte aparte)
 *.apk
-output.json
-
-# IntelliJ
-*.iml
-.idea/
-misc.xml
-deploymentTargetDropDown.xml
-render.experimental.xml
-
-# Keystore files
-*.jks
-*.keystore
-
-# Google Services (e.g. APIs or Firebase)
-google-services.json
-
-# Android Profiling
-*.hprof

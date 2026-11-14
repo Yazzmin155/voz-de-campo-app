@@ -1,0 +1,361 @@
+@import "tailwindcss";
+
+@layer base {
+  :root {
+    --canvas: #f5f7f2;
+    --surface: #ffffff;
+    --surface-2: #edf2e8;
+    --tint: #e4f1db;
+    --ink: #142418;
+    --muted: #526356;
+    --brand: #1f7a3a;
+    --brand-dark: #155728;
+    --brand-bright: #58a700;
+    --amber: #f59e0b;
+    --amber-dark: #b45309;
+    --danger: #dc2626;
+    --danger-dark: #991b1b;
+    --ibm: #0f62fe;
+    --hairline: #dce5d5;
+    --frame-backdrop: #e2e9dc;
+    color-scheme: light;
+  }
+
+  html[data-theme="dark"],
+  html.dark {
+    --canvas: #0d140e;
+    --surface: #151f16;
+    --surface-2: #1d2b1f;
+    --tint: #1f3322;
+    --ink: #f0f5ee;
+    --muted: #9cb0a0;
+    --brand: #58a700;
+    --brand-dark: #3f7a00;
+    --brand-bright: #7bd62b;
+    --amber: #fbbf24;
+    --amber-dark: #d97706;
+    --danger: #f87171;
+    --danger-dark: #dc2626;
+    --ibm: #5294ff;
+    --hairline: #273829;
+    --frame-backdrop: #080c08;
+    color-scheme: dark;
+  }
+
+  *,
+  *::before,
+  *::after {
+    box-sizing: border-box;
+    -webkit-tap-highlight-color: transparent;
+  }
+
+  html,
+  body,
+  #root {
+    width: 100%;
+    height: 100dvh;
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+    background-color: var(--canvas);
+    color: var(--ink);
+    font-family: "Figtree", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+    font-size: 16px;
+    line-height: 1.5;
+    overscroll-behavior: none;
+    -webkit-font-smoothing: antialiased;
+    transition: background-color 0.2s ease, color 0.2s ease;
+  }
+
+  /* Evitar scrollbar de navegador web en todo el contenedor móvil */
+  *::-webkit-scrollbar {
+    width: 0px;
+    height: 0px;
+    display: none;
+  }
+
+  * {
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+  }
+
+  h1,
+  h2,
+  h3,
+  h4,
+  .font-display {
+    font-family: "Plus Jakarta Sans", "Figtree", -apple-system, BlinkMacSystemFont, sans-serif;
+    letter-spacing: -0.022em;
+  }
+
+  code,
+  pre,
+  .font-mono-tech {
+    font-family: "IBM Plex Mono", ui-monospace, SFMono-Regular, Menlo, monospace;
+  }
+}
+
+/* Contenedor de scroll nativo de la app */
+.app-scroll {
+  overflow-y: auto;
+  overflow-x: hidden;
+  -webkit-overflow-scrolling: touch;
+  overscroll-behavior-y: contain;
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+}
+
+.app-scroll::-webkit-scrollbar {
+  display: none;
+  width: 0;
+  height: 0;
+}
+
+/* Entrada de pantalla: termina siempre visible, sin depender de JS */
+@keyframes page-enter {
+  from {
+    opacity: 0;
+    transform: translateX(var(--page-shift, 12px));
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+.page-enter {
+  animation: page-enter 210ms cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+/* Superficies y tarjetas adaptativas */
+.bg-app-canvas {
+  background-color: var(--canvas);
+}
+
+/* Campos de formulario nativos */
+.field-input {
+  width: 100%;
+  height: 2.875rem;
+  padding: 0 0.875rem;
+  border-radius: 0.85rem;
+  background-color: var(--surface-2);
+  border: 1.5px solid var(--hairline);
+  font-size: 0.875rem;
+  font-weight: 600;
+  color: var(--ink);
+  transition:
+    border-color 0.15s ease,
+    background-color 0.15s ease;
+}
+
+.field-input::placeholder {
+  color: var(--muted);
+  opacity: 0.75;
+  font-weight: 500;
+}
+
+.field-input:focus {
+  outline: none;
+  border-color: var(--brand);
+  background-color: var(--surface);
+}
+
+.field-input[aria-invalid="true"] {
+  border-color: var(--danger);
+}
+
+/* El input tiene su propio padding en CSS, así que las utilidades de padding
+   izquierdo/derecho no lo alcanzan. Estas variantes dejan aire para el ícono
+   y para el botón del ojo. */
+.field-input.field-input-icon {
+  padding-left: 2.4rem;
+}
+
+.field-input.field-input-trailing {
+  padding-right: 2.6rem;
+}
+
+.bg-app-surface {
+  background-color: var(--surface);
+}
+
+.bg-app-surface-2 {
+  background-color: var(--surface-2);
+}
+
+.bg-app-tint {
+  background-color: var(--tint);
+}
+
+.text-app-ink {
+  color: var(--ink);
+}
+
+.text-app-muted {
+  color: var(--muted);
+}
+
+.border-app-hairline {
+  border-color: var(--hairline);
+}
+
+/* Tarjetas profesionales con micro-elevación */
+.card-duo {
+  background-color: var(--surface);
+  border: 1.5px solid var(--hairline);
+  border-radius: 1.35rem;
+  box-shadow:
+    0 1px 3px rgba(16, 32, 20, 0.04),
+    0 6px 18px rgba(16, 32, 20, 0.035);
+  transition:
+    background-color 0.2s ease,
+    border-color 0.2s ease,
+    transform 0.16s cubic-bezier(0.22, 1, 0.36, 1),
+    box-shadow 0.2s ease;
+}
+
+/* Botones profesionales táctiles con micro-interacción y respuesta física sobria */
+.btn-duo-primary {
+  background: linear-gradient(180deg, #248a42 0%, #1b6e33 100%);
+  color: #ffffff;
+  font-weight: 700;
+  border-radius: 1rem;
+  border: 1px solid rgba(255, 255, 255, 0.14);
+  border-bottom: 2.5px solid #124d23;
+  box-shadow: 0 3px 10px rgba(27, 110, 51, 0.22);
+  transition:
+    transform 0.12s cubic-bezier(0.22, 1, 0.36, 1),
+    box-shadow 0.15s ease,
+    filter 0.15s ease;
+  user-select: none;
+  cursor: pointer;
+}
+
+html[data-theme="dark"] .btn-duo-primary {
+  background: linear-gradient(180deg, #68c113 0%, #529b08 100%);
+  color: #09130a;
+  border-bottom-color: #386b04;
+  box-shadow: 0 3px 12px rgba(104, 193, 19, 0.22);
+}
+
+.btn-duo-primary:hover:not(:disabled) {
+  filter: brightness(1.05);
+  transform: translateY(-1px);
+  box-shadow: 0 6px 16px rgba(27, 110, 51, 0.28);
+}
+
+.btn-duo-primary:active:not(:disabled) {
+  transform: translateY(1px) scale(0.99);
+  box-shadow: 0 1px 4px rgba(27, 110, 51, 0.18);
+}
+
+.btn-duo-secondary {
+  background-color: var(--surface);
+  color: var(--ink);
+  font-weight: 700;
+  border-radius: 1rem;
+  border: 1.5px solid var(--hairline);
+  border-bottom-width: 2.5px;
+  box-shadow: 0 1px 3px rgba(16, 32, 20, 0.04);
+  transition:
+    transform 0.12s cubic-bezier(0.22, 1, 0.36, 1),
+    background-color 0.15s ease,
+    border-color 0.15s ease,
+    box-shadow 0.15s ease;
+  user-select: none;
+  cursor: pointer;
+}
+
+.btn-duo-secondary:hover:not(:disabled) {
+  background-color: var(--surface-2);
+  transform: translateY(-1px);
+  box-shadow: 0 4px 10px rgba(16, 32, 20, 0.06);
+}
+
+.btn-duo-secondary:active:not(:disabled) {
+  transform: translateY(1px) scale(0.99);
+}
+
+.btn-duo-amber {
+  background: linear-gradient(180deg, #fbbf24 0%, #f59e0b 100%);
+  color: #142418;
+  font-weight: 700;
+  border-radius: 1rem;
+  border-bottom: 2.5px solid #b45309;
+  box-shadow: 0 3px 10px rgba(245, 158, 11, 0.2);
+  transition:
+    transform 0.12s cubic-bezier(0.22, 1, 0.36, 1),
+    filter 0.15s ease;
+  user-select: none;
+  cursor: pointer;
+}
+
+.btn-duo-amber:hover:not(:disabled) {
+  filter: brightness(1.04);
+  transform: translateY(-1px);
+}
+
+.btn-duo-amber:active:not(:disabled) {
+  transform: translateY(1px) scale(0.99);
+}
+
+.btn-duo-danger {
+  background: linear-gradient(180deg, #ef4444 0%, #dc2626 100%);
+  color: #ffffff;
+  font-weight: 700;
+  border-radius: 1rem;
+  border-bottom: 2.5px solid #991b1b;
+  box-shadow: 0 3px 10px rgba(220, 38, 38, 0.22);
+  transition:
+    transform 0.12s cubic-bezier(0.22, 1, 0.36, 1),
+    filter 0.15s ease;
+  user-select: none;
+  cursor: pointer;
+}
+
+.btn-duo-danger:hover:not(:disabled) {
+  filter: brightness(1.05);
+  transform: translateY(-1px);
+}
+
+.btn-duo-danger:active:not(:disabled) {
+  transform: translateY(1px) scale(0.99);
+}
+
+.pb-safe-nav {
+  padding-bottom: calc(5.5rem + env(safe-area-inset-bottom, 0px));
+}
+
+.pb-safe {
+  padding-bottom: max(0.375rem, env(safe-area-inset-bottom, 0px));
+}
+
+.pt-safe-top {
+  padding-top: env(safe-area-inset-top, 0px);
+}
+
+/* Ocultar barra de scroll en chips horizontales */
+.no-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+.no-scrollbar {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
+/* Ajustes para Leaflet dentro de tarjetas móviles */
+.leaflet-container {
+  font-family: "Figtree", sans-serif !important;
+  z-index: 1 !important;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
